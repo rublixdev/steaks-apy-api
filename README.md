@@ -18,7 +18,6 @@ The REST API to Steak Finance is described below.
         COMP_ETH
         YFI_ETH
         STEAK_ETH
-        LEND_ETH
         WBTC_ETH
         SNX_ETH
         USDC_STEAK
