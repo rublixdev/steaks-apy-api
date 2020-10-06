@@ -10,23 +10,29 @@ if (!admin.apps.length) {
 
 const getTVLApi = functions.https.onRequest(async (request, response) => {
   let TVL = new BigNumber(0);
+  let getAllStakedValuePromises = [
+    getAllStakedValue(constants.lpPairs.HEDG_ETH),
+    getAllStakedValue(constants.lpPairs.USDC_ETH),
+    getAllStakedValue(constants.lpPairs.LINK_ETH),
+    getAllStakedValue(constants.lpPairs.UNI_ETH),
+    getAllStakedValue(constants.lpPairs.COMP_ETH),
+    getAllStakedValue(constants.lpPairs.YFI_ETH),
+    getAllStakedValue(constants.lpPairs.STEAK_ETH),
+    getAllStakedValue(constants.lpPairs.WBTC_ETH),
+    getAllStakedValue(constants.lpPairs.SNX_ETH),
+    getAllStakedValue(constants.lpPairs.USDC_STEAK),
+    getAllStakedValue(constants.lpPairs.WBTC_STEAK),
+    getAllStakedValue(constants.lpPairs.USDC_HEDG),
+    getAllStakedValue(constants.lpPairs.HEDG_STEAK),
+    getAllStakedValue(constants.lpPairs.PICKLE_ETH),
+    getAllStakedValue(constants.lpPairs.SUSHI_ETH),
+    getAllStakedValue(constants.lpPairs.DAI_USDC),
+  ];
 
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.HEDG_ETH)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.USDC_ETH)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.LINK_ETH)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.UNI_ETH)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.COMP_ETH)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.YFI_ETH)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.STEAK_ETH)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.WBTC_ETH)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.SNX_ETH)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.USDC_STEAK)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.WBTC_STEAK)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.USDC_HEDG)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.HEDG_STEAK)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.PICKLE_ETH)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.SUSHI_ETH)).wethAmount);
-  TVL = TVL.plus((await getAllStakedValue(constants.lpPairs.DAI_USDC)).wethAmount);
+  const stakedValues = await Promise.all(getAllStakedValuePromises);
+  stakedValues.forEach((stakedValue) => {
+    TVL = TVL.plus(stakedValue.wethAmount);
+  });
 
   TVL = TVL.times(2);
 
