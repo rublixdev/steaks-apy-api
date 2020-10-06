@@ -39,7 +39,6 @@ The REST API to Steak Finance is described below.
 
     "98.06240731446859464684"
 
-
 ## Get Staked Value in ETH
 
 ### Request
@@ -76,3 +75,22 @@ The REST API to Steak Finance is described below.
     Content-Length: 25
 
     "51.10837933522912652689"
+
+## Get Total Value Locked in ETH
+
+### Request
+
+`GET /getTVLApi`
+
+    curl -i -H 'Accept: application/json' https://us-central1-steak-finance.cloudfunctions.net/getTVLApi
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Mon, 05 Oct 2020 12:36:30 EDT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 27
+
+    "1022.54408231416451316224"
