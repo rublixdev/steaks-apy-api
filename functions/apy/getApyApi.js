@@ -24,7 +24,8 @@ const getApyApi = functions.https.onRequest(async (request, response) => {
       .times(constants.BLOCKS_PER_YEAR)
       .times(requestedStakedValue.poolWeight)
       .div(requestedStakedValue.totalWethValue)
-      .times(100);
+      .times(100)
+      .times(2);
     response.send(apy);
   }
 });
